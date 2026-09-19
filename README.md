@@ -32,5 +32,28 @@
 | **Sanitisation Scheme** | `0x00` zeroization via `volatile` loop | Eliminates sensitive data exposure post-release |
 
 ---
+## Directory Structure
+
+```text
+.
+├── include/
+│   ├── pool_allocator.h   # Memory pool data structures and public API
+│   └── profiler.h         # Hardware Abstraction Layer (HAL) for profiling
+├── src/
+│   ├── pool_allocator.c   # Bitmap logic, CLZ search, and volatile sanitization
+│   └── profiler.c         # ARM DWT register drivers & inline assembly
+├── test/
+│   └── test_allocator.c   # Unit test suite and edge-case verification
+├── main.c                 # Benchmark harness and validation entry point
+└── README.md              # Project documentation
+Building and Execution
+Host Simulation (x86 / GCC)
+
+Compile and execute the test harness locally on Windows or Linux:
+  # Compile sources with C99 standard and include directories
+  gcc -O2 -Wall -Iinclude src/pool_allocator.c src/profiler.c main.c -o alloc_test.exe
+
+  # Execute benchmark
+  .\alloc_test.exe
 
 This project is open-source and distributed under the MIT License.
